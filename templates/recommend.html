@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <div class="container align-content-center">
+            <a class="navbar-brand text-primary" href="/">
+                MovieFlix
+            </a>
+        </div>
+        <div class="container-fluid">
+            <form class="d-flex" action="/recommend" method="POST"> 
+                <input aria-label="Search" class="form-control me-2" autocomplete="off" autofocus placeholder="Enter Movie Name" type="search" name="movie_name">
+                    <button class="btn btn-outline-success" type="submit">
+                        Search
+                    </button>
+                </input>
+            </form>
+        </div>
+    </div>
+</nav>
+<section style="background: rgb(172,175,183); height: 80vh;">
+    <div class="modal-body row">
+        <div class="col-md-6 text-center">
+            <img height="500" src=" {{img_path}}" style="padding-left: 10px; padding-right: 100px; padding-bottom: 0px; padding-top: 30px;border-radius: 5px;margin-bottom: 10px;" width="550">
+            </img>
+        </div>
+        <div class="col-md-6 text-center">
+            <h2 style="color: white; text-align: center;padding-right: 100px; padding-top: 80px;margin-left: -45%">
+                {{movie_name}} ({{movie_year}}) {{language}}
+            </h2>
+            <div class="facts" style="color: white;text-align: center;padding-right: 100px; padding-top: 0px;margin-left: -85%">
+                <ul>
+                    <b>
+                        Date : {{release_date}}
+                    </b>
+                </ul>
+                <ul>
+                    <b>
+                        Duration : {{runtime}}
+                    </b>
+                </ul>
+                <ul>
+                    <b>
+                        Genre : {{genre}}
+                    </b>
+                </ul>
+                <ul>
+                    <b>
+                        Rating : {{rating}}({{vote_count}} votes)
+                    </b>
+                </ul>
+                <ul>
+                    <b>
+                        <p style="margin-left: 40%;">
+                            {{overview}}
+                        </p>
+                    </b>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <centre>
+            <h3 style="padding-bottom: 2%;">
+                Recommended For You
+            </h3>
+        </centre>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for movie in result_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img alt="..." class="bd-placeholder-img card-img-top" height="400" role="img" src="{{movie['Image']}}" width="100%">
+                        <div class="card-body">
+                            <h4 class="card-text">
+                                {{movie['Movie_name']}} ({{movie['Year']}})
+                            </h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a class="stretched-link" href="#" style="color: greenyellow;">
+                                    {{movie['Rating']}}
+                                </a>
+                                <small class="text-muted">
+                                    {{movie['Duration']}}
+                                </small>
+                            </div>
+                        </div>
+                    </img>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
